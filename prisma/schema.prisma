@@ -12,3 +12,53 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model recipe {
+  id           String   @id @default(uuid())
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @default(now()) @map("updated_at")
+  Recipe_name       String
+  Price             Int
+  Serving_Size      Int
+  Total_Calories    Int
+  Available         Boolean
+  Key_Ingredients   String[]
+  Allergens         String[]
+  Ingredients       String[]
+  Description       String
+}
+
+model Ingredient {
+  id           String   @id @default(uuid())
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @default(now()) @map("updated_at")
+  Ingredient_name   String
+  Total_Calories    Int
+  Available         Boolean
+  Recipes           String[]
+}
+
+model address {
+  id            String  @id @default(uuid())
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @default(now()) @map("updated_at")
+  FlatNumber    String
+  Street        String
+  City          String
+  Pincode       String
+  State         String
+  Country       String
+  latitude      String
+  longitude     String
+  Geohash       String
+}
+
+model service {
+  id            String  @id @default(uuid())
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @default(now()) @map("updated_at")
+  Location      String
+  latitude      Decimal
+  longitude     Decimal
+  Geohash       String
+}
