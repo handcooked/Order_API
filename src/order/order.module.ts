@@ -8,7 +8,7 @@ import { Order, OrderSchema } from './schemas/order/order';
 
 @Module({
   imports: [
-    MongooseModule.forRoot('mongodb+srv://soumikhandcooked:qXXMoP8QdudAWh2p@order.dlwjndi.mongodb.net/?retryWrites=true&w=majority&appName=Order'),
+    MongooseModule.forRoot(process.env.MONGO_URL),
     MongooseModule.forFeature([{ name: Order.name, schema: OrderSchema }]),
     HttpModule,
   ],
