@@ -64,7 +64,7 @@ import {
         });
       }
     }
-    @Get('add')
+    @Get('all')
     @UsePipes(ValidationPipe)
     async getRecipe(
       @Req() request: Request,

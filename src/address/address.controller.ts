@@ -3,6 +3,7 @@ import {
     Controller,
     HttpStatus,
     Post,
+    //Get,
     Req,
     Res,
     Put,
@@ -11,64 +12,38 @@ import {
     UsePipes,
     ValidationPipe,
     Headers,
+    //Body,
+    Query,
+    Body,
   } from '@nestjs/common';
   import CustomLogger from 'src/utils/logger';
   import { AddressService } from './address.service';
   import { Request, Response } from 'express';
+//import { addressDto } from './address.dto';
+import { PrismaClient } from '@prisma/client';
   //import { addressDto } from 'src/auth/dto/address.dto';
 
   @Controller('address')
   export class AddressController {
     private readonly logger: CustomLogger;
     private readonly addressService: AddressService;
+    private client: PrismaClient;
 
     constructor() {
       this.logger = new CustomLogger();
       this.addressService = new AddressService();
+      this.client = new PrismaClient();
     }
 
-    @Post('add')
-    @UsePipes(ValidationPipe)
-    async addAddress(
-      @Headers('id') token: string,
-      //@Body() addressDTO: addressDto,
-      @Req() request: Request,
-      @Res() response: Response,
-    ): Promise<void> {
-      try {
-        console.log(token);
-        const {
-          FlatNumber,
-          Street,
-          City,
-          Pincode,
-          State,
-          Country,
-          Latitude,
-          Longitude,
-        } = request.body;
-        const { id } = await this.addressService.addAddress(
-          token,
-          FlatNumber,
-          Street,
-          City,
-          Pincode,
-          State,
-          Country,
-          Latitude,
-          Longitude,
-        );
-        response.status(HttpStatus.CREATED).json({
-          message: 'Address added successfully',
-          id,
-        });
-      } catch (e) {
-        this.logger.error(e);
-        response.status(e.statusCode || HttpStatus.INTERNAL_SERVER_ERROR).json({
-          message: e.message || 'Internal Server Error',
-        });
-      }
-    }
+    @Post('check-address')
+  async checkAddress(@Body('Geohash') Geohash: string): Promise<boolean> {
+    console.log(Geohash);
+    const service = await this.client.service.findFirst({
+      where: { Geohash: Geohash },
+    });
+    console.log(service);
+    return !!service;
+  }
 
     @Post('addService')
     @UsePipes(ValidationPipe)
@@ -102,7 +77,6 @@ import {
         });
       }
     }
-
 
     @Put(':id')
     @UsePipes(ValidationPipe)

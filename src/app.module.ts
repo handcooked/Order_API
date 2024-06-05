@@ -6,9 +6,10 @@ import { AppService } from './app.service';
 //import { CsvController } from './csv/csv.controller';
 import { RecipeModule } from './recipe/recipe.module';
 import { AddressModule } from './address/address.module';
+import { OrderModule } from './order/order.module';
 
 @Module({
-  imports: [RecipeModule, AddressModule],
+  imports: [RecipeModule, AddressModule, OrderModule],
   controllers: [AppController],
   providers: [AppService],
 })
