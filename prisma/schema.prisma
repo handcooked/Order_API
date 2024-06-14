@@ -18,9 +18,9 @@ model recipe {
   createdAt    DateTime @default(now()) @map("created_at")
   updatedAt    DateTime @default(now()) @map("updated_at")
   Recipe_name       String
-  Price             Int
+  Price             Float
   Serving_Size      Int
-  Total_Calories    Int
+  Total_Calories    Float
   Available         Boolean
   Key_Ingredients   String[]
   Allergens         String[]
@@ -33,7 +33,7 @@ model Ingredient {
   createdAt    DateTime @default(now()) @map("created_at")
   updatedAt    DateTime @default(now()) @map("updated_at")
   Ingredient_name   String
-  Total_Calories    Int
+  Total_Calories    Float
   Available         Boolean
   Recipes           String[]
 }
@@ -61,4 +61,23 @@ model service {
   latitude      Decimal
   longitude     Decimal
   Geohash       String
+}
+
+model MealPlan {
+  id        String   @id @default(uuid())
+  userId    String   @map("user_id")
+  monday    String[]
+  tuesday   String[]
+  wednesday String[]
+  thursday  String[]
+  friday    String[]
+  saturday  String[]
+  sunday    String[]
+}
+
+model DayPlan {
+  id        String   @id @default(uuid())
+  breakfast Json
+  lunch     Json
+  dinner    Json
 }
