@@ -20,6 +20,7 @@ model recipe {
   Recipe_name       String
   Price             Float
   Serving_Size      Int
+  personalizations  String[]
   Total_Calories    Float
   Available         Boolean
   Key_Ingredients   String[]
@@ -64,20 +65,21 @@ model service {
 }
 
 model MealPlan {
-  id        String   @id @default(uuid())
-  userId    String   @map("user_id")
-  monday    String[]
-  tuesday   String[]
-  wednesday String[]
-  thursday  String[]
-  friday    String[]
-  saturday  String[]
-  sunday    String[]
+  id               Int      @id @default(autoincrement())
+  userId           String   @unique
+  personalizations String[]
+  monday           Json
+  tuesday          Json
+  wednesday        Json
+  thursday         Json
+  friday           Json
+  saturday         Json
+  sunday           Json
 }
 
-model DayPlan {
-  id        String   @id @default(uuid())
-  breakfast Json
-  lunch     Json
-  dinner    Json
-}
+// model DayPlan {
+//   id        String   @id @default(uuid())
+//   breakfast Json
+//   lunch     Json
+//   dinner    Json
+// }
