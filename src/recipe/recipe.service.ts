@@ -49,6 +49,7 @@ export class RecipeService {
             Allergens: Allergens,
             Ingredients: Ingredients,
             Description: Description,
+            Discount: 0,
             //userID: '08790e48-65e9-463f-bfce-30a044087d9c',
           },
         });
@@ -61,5 +62,15 @@ export class RecipeService {
       //throw new CustomException(error.message, 500);
     }
   }
+  // async getTopDiscountedRecipes(): Promise<Recipe[]> {
+  //   // Assuming 'Recipe' is your entity and it has a 'discount' field
+  //   // This query will fetch the top 10 recipes with the highest discounts
+  //   return this.client.recipe.findMany({
+  //     orderBy: {
+  //       discount: 'DESC', // Order by discount in descending order
+  //     },
+  //     take: 10, // Limit the results to the top 10
+  //   });
+  // }
 
 }

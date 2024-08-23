@@ -18,14 +18,16 @@ model recipe {
   createdAt    DateTime @default(now()) @map("created_at")
   updatedAt    DateTime @default(now()) @map("updated_at")
   Recipe_name       String
-  Price             Int
+  Price             Float
   Serving_Size      Int
-  Total_Calories    Int
+  personalizations  String[]
+  Total_Calories    Float
   Available         Boolean
   Key_Ingredients   String[]
   Allergens         String[]
   Ingredients       String[]
   Description       String
+  Discount          Float
 }
 
 model Ingredient {
@@ -33,7 +35,7 @@ model Ingredient {
   createdAt    DateTime @default(now()) @map("created_at")
   updatedAt    DateTime @default(now()) @map("updated_at")
   Ingredient_name   String
-  Total_Calories    Int
+  Total_Calories    Float
   Available         Boolean
   Recipes           String[]
 }
@@ -61,4 +63,71 @@ model service {
   latitude      Decimal
   longitude     Decimal
   Geohash       String
+}
+
+model MealPlan {
+  id               Int      @id @default(autoincrement())
+  userId           String   @unique
+  personalizations String[]
+  monday           Json
+  tuesday          Json
+  wednesday        Json
+  thursday         Json
+  friday           Json
+  saturday         Json
+  sunday           Json
+}
+
+// model DayPlan {
+//   id        String   @id @default(uuid())
+//   breakfast Json
+//   lunch     Json
+//   dinner    Json
+// }
+
+model PaymentOptions {
+  id           String   @id @default(uuid())
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @default(now()) @map("updated_at")
+  RecentlyUsed      String[]
+  UPI               String[]
+  Credit_cards      String[] //this will contain the id of the Card Model
+  More              String[]
+  Pay_later         String[]
+}
+
+model card {
+  id           String   @id @default(uuid())
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @default(now()) @map("updated_at")
+  CardNumber         Int
+  ValidThroughMonth  Int
+  ValidThroughYear   Int
+  CVV                Int
+  CardHolderName     String
+}
+
+model UPI{
+  id           String   @id @default(uuid())
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @default(now()) @map("updated_at")
+  UPI_ID             String
+  UPI_Name           String
+}
+
+model delivery{
+  id       String   @id @default(uuid())
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @default(now()) @map("updated_at")
+  orderID           String
+  deliveryAddress    String
+  //deliveryTime       DateTime
+  deliveryStatus    DeliveryStatus @default(PENDING)
+}
+
+enum DeliveryStatus {
+  PENDING
+  SHIPPED
+  DELIVERED
+  CANCELLED
 }
