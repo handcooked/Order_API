@@ -106,6 +106,16 @@ import {
       }
     }
 
+//     @Get('top-discounted')
+//     async getTopDiscountedRecipes(@Res() response: Response): Promise<void> {
+//     try {
+//       const topRecipes = await this.recipeService.getTopDiscountedRecipes();
+//       response.status(HttpStatus.OK).json(topRecipes);
+//     } catch (error) {
+//       response.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ message: error.message });
+//     }
+// }
+
 
 
   }

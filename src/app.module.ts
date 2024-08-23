@@ -8,9 +8,12 @@ import { RecipeModule } from './recipe/recipe.module';
 import { AddressModule } from './address/address.module';
 import { OrderModule } from './order/order.module';
 import { MealPlanModule } from './meal-plan/meal-plan.module';
+import { PaymentModule } from './payment/payment.module';
+import { DeliveryModule } from './delivery/delivery.module';
+import { VideoModule } from './video/video.module';
 
 @Module({
-  imports: [RecipeModule, AddressModule, OrderModule, MealPlanModule],
+  imports: [RecipeModule, AddressModule, OrderModule, MealPlanModule, PaymentModule, DeliveryModule, VideoModule],
   controllers: [AppController],
   providers: [AppService],
 })
