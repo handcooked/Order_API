@@ -2,9 +2,7 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaClient } from '@prisma/client';
 import AddAddressResult from 'src/types/addAddressResult';
-//import AddAddressResult from 'src/types/addAddressResult';
-//import CustomException from 'src/types/exception';
-//import UpdateAddressResult from 'src/types/updateAddressResult';
+import { Recipe } from './recipe.interface';
 //import JWTHelper from 'src/utils/jwtHelper';
 import CustomLogger from 'src/utils/logger';
 //import * as ngeohash from 'ngeohash';
@@ -62,15 +60,18 @@ export class RecipeService {
       //throw new CustomException(error.message, 500);
     }
   }
-  // async getTopDiscountedRecipes(): Promise<Recipe[]> {
-  //   // Assuming 'Recipe' is your entity and it has a 'discount' field
-  //   // This query will fetch the top 10 recipes with the highest discounts
-  //   return this.client.recipe.findMany({
-  //     orderBy: {
-  //       discount: 'DESC', // Order by discount in descending order
-  //     },
-  //     take: 10, // Limit the results to the top 10
-  //   });
-  // }
+  async findAll(): Promise<Recipe[]> {
+    return await this.client.recipe.findMany();
+  }
+  async getTopDiscountedRecipes(): Promise<Recipe[]> {
+    // Assuming 'Recipe' is your entity and it has a 'discount' field
+    // This query will fetch the top 10 recipes with the highest discounts
+    return this.client.recipe.findMany({
+      orderBy: {
+        Discount: 'desc', // Order by discount in descending order
+      },
+      take: 10, // Limit the results to the top 10
+    });
+  }
 
 }

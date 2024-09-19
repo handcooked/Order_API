@@ -26,7 +26,7 @@ export class VideoController {
     },
     {
       id: 5,
-      previewUrl: process.env.VIDEO_2_PREVIEW_URL,
+      previewUrl: process.env.dVIDEO_2_PREVIEW_URL,
       videoUrl: process.env.VIDEO_2_URL,
     },
     {
@@ -60,6 +60,7 @@ export class VideoController {
     const previews = this.videos.map(video => ({
       id: video.id,
       previewUrl: video.previewUrl,
+      videoUrl: video.videoUrl,
     }));
     return { previews };
   }

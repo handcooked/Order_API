@@ -11,9 +11,10 @@ import { MealPlanModule } from './meal-plan/meal-plan.module';
 import { PaymentModule } from './payment/payment.module';
 import { DeliveryModule } from './delivery/delivery.module';
 import { VideoModule } from './video/video.module';
+import { FormModule } from './form/form.module';
 
 @Module({
-  imports: [RecipeModule, AddressModule, OrderModule, MealPlanModule, PaymentModule, DeliveryModule, VideoModule],
+  imports: [RecipeModule, AddressModule, OrderModule, MealPlanModule, PaymentModule, DeliveryModule, VideoModule, FormModule],
   controllers: [AppController],
   providers: [AppService],
 })

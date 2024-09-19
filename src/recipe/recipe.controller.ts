@@ -66,55 +66,25 @@ import {
     }
     @Get('all')
     @UsePipes(ValidationPipe)
-    async getRecipe(
-      @Req() request: Request,
-      @Res() response: Response,
-    ): Promise<void> {
+    async getRecipe(@Req() request: Request, @Res() response: Response): Promise<void> {
       try {
-
-        const {
-          Recipe_name,
-          Price,
-          Serving_Size,
-          Total_Calories,
-          Available,
-          Key_Ingredients,
-          Allergens,
-          Ingredients,
-          Description
-        } = request.body;
-        const { id } = await this.recipeService.addRecipe(
-          Recipe_name,
-          Price,
-          Serving_Size,
-          Total_Calories,
-          Available,
-          Key_Ingredients,
-          Allergens,
-          Ingredients,
-          Description
-        );
-        response.status(HttpStatus.CREATED).json({
-          message: 'Recipe added successfully',
-          id,
-        });
+        const recipes = await this.recipeService.findAll();
+        response.status(200).json(recipes);
       } catch (e) {
-        //this.logger.error(e);
-        response.status(e.statusCode || HttpStatus.INTERNAL_SERVER_ERROR).json({
+        response.status(500).json({
           message: e.message || 'Internal Server Error',
         });
       }
     }
-
-//     @Get('top-discounted')
-//     async getTopDiscountedRecipes(@Res() response: Response): Promise<void> {
-//     try {
-//       const topRecipes = await this.recipeService.getTopDiscountedRecipes();
-//       response.status(HttpStatus.OK).json(topRecipes);
-//     } catch (error) {
-//       response.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ message: error.message });
-//     }
-// }
+    @Get('top-discounted')
+    async getTopDiscountedRecipes(@Res() response: Response): Promise<void> {
+    try {
+      const topRecipes = await this.recipeService.getTopDiscountedRecipes();
+      response.status(HttpStatus.OK).json(topRecipes);
+    } catch (error) {
+      response.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ message: error.message });
+    }
+  }
 
 
 
