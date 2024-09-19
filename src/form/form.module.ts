@@ -1,9 +1,10 @@
-import { Module } from '@nestjs/common';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { Module, Res } from '@nestjs/common';
 import { FormController } from './form.controller';
-import { FormService } from './form.service';
+import { ResponseService } from './form.service';
 
 @Module({
   controllers: [FormController],
-  providers: [FormService]
+  providers: [ResponseService],
 })
 export class FormModule {}
