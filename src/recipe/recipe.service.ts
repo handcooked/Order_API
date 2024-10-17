@@ -30,27 +30,42 @@ export class RecipeService {
     Allergens: string[],
     Ingredients: string[],
     Description: string,
+    image: string,
+    rating: string,
+    type: string,
+    Steps: string[],
+    personalizations: string[],
+    Protein: number,
+    Fat: number,
+    Carbohydrates: number
   ): Promise<AddAddressResult> {
     try {
       //const decodedToken = await this.verifyToken(token);
       //const Hash = ngeohash.encode(Latitude, Longitude);
 
 
-        const address = await this.client.recipe.create({
-          data: {
-            Recipe_name: Recipe_name,
-            Price: Price,
-            Serving_Size: Serving_Size,
-            Total_Calories: Total_Calories,
-            Available: Available,
-            Key_Ingredients: Key_Ingredients,
-            Allergens: Allergens,
-            Ingredients: Ingredients,
-            Description: Description,
-            Discount: 0,
-            //userID: '08790e48-65e9-463f-bfce-30a044087d9c',
-          },
-        });
+      const address = await this.client.recipe.create({
+        data: {
+          Recipe_name: Recipe_name,
+          Price: Price,
+          Serving_Size: Serving_Size,
+          Calories: Total_Calories, // Updated to match the schema
+          Available: Available,
+          Key_Ingredients: Key_Ingredients,
+          Allergens: Allergens,
+          Ingredients: Ingredients,
+          Description: Description,
+          Discount: 0,
+          image: image, // Added to match the schema
+          rating: rating, // Added to match the schema
+          type: type, // Added to match the schema
+          Steps: Steps, // Added to match the schema
+          personalizations: personalizations, // Added to match the schema
+          Protein: Protein, // Added to match the schema
+          Fat: Fat, // Added to match the schema
+          Carbohydrates: Carbohydrates, // Added to match the schema
+        },
+      });
         return {
           id: address.id,
         };

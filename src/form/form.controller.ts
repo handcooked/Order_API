@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post, Headers, UnauthorizedException, UsePipes, ValidationPipe } from '@nestjs/common';
 import { CreateResponseDto } from './form.dto';
 import { ResponseService } from './form.service';
 
@@ -39,9 +39,22 @@ export class FormController {
       }
 
       @Post()
-        async createResponses(@Body() createResponseDto: CreateResponseDto) {
-            return await this.responseService.createResponses(createResponseDto);
-        }
-
+  @UsePipes(new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true }))
+  async createResponses(@Body() createResponseDto: CreateResponseDto, @Headers('authorization') authHeader: string) {
+    if (!authHeader) {
+      throw new UnauthorizedException('Authorization header is missing');
+    }
     
+
+    const token = authHeader;
+
+    if (!token) {
+      throw new UnauthorizedException('Token is missing');
+    }
+
+    console.log(createResponseDto);
+    return await this.responseService.createResponses(createResponseDto, token);
+  }
+
+
 }

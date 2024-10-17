@@ -13,22 +13,31 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model recipe {
-  id           String   @id @default(uuid())
-  createdAt    DateTime @default(now()) @map("created_at")
-  updatedAt    DateTime @default(now()) @map("updated_at")
+model Recipe {
+  id                String    @id @default(uuid())
+  createdAt         DateTime  @default(now()) @map("created_at")
+  updatedAt         DateTime  @default(now()) @map("updated_at")
+  image             String
   Recipe_name       String
+  Description       String
+  rating            String
+  type              String
   Price             Float
+  Ingredients       String[]
+  Steps             String[]
   Serving_Size      Int
   personalizations  String[]
-  Total_Calories    Float
+  Protein           Float
+  Fat               Float
+  Carbohydrates     Float
+  Calories          Float
   Available         Boolean
   Key_Ingredients   String[]
   Allergens         String[]
-  Ingredients       String[]
-  Description       String
   Discount          Float
 }
+
+
 
 model Ingredient {
   id           String   @id @default(uuid())

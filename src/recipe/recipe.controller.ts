@@ -40,8 +40,17 @@ import {
           Key_Ingredients,
           Allergens,
           Ingredients,
-          Description
+          Description,
+          image,
+          rating,
+          type,
+          Steps,
+          personalizations,
+          Protein,
+          Fat,
+          Carbohydrates
         } = request.body;
+
         const { id } = await this.recipeService.addRecipe(
           Recipe_name,
           Price,
@@ -51,7 +60,15 @@ import {
           Key_Ingredients,
           Allergens,
           Ingredients,
-          Description
+          Description,
+          image,
+          rating,
+          type,
+          Steps,
+          personalizations,
+          Protein,
+          Fat,
+          Carbohydrates
         );
         response.status(HttpStatus.CREATED).json({
           message: 'Recipe added successfully',
